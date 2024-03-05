@@ -1,7 +1,7 @@
-import React from 'react';
+import AdminLayout from '@/components/templates/AdminLayout';
 
 const ProductCreate = () => {
-  return <div>ProductCreate</div>;
+  return <AdminLayout title={'Product Create'}>ProductCreate</AdminLayout>;
 };
 
 export default ProductCreate;

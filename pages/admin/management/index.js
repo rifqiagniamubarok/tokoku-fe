@@ -1,7 +1,8 @@
+import AdminLayout from '@/components/templates/AdminLayout';
 import React from 'react';
 
 const Management = () => {
-  return <div>Management</div>;
+  return <AdminLayout title={'Management'}>Management</AdminLayout>;
 };
 
 export default Management;

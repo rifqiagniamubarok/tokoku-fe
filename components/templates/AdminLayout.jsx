@@ -1,11 +1,17 @@
 import React from 'react';
+import AdminSidebar from '../organisms/AdminSidebar/AdminSidebar';
+import AdminNavbar from '../organisms/AdminNavbar/AdminNavbar';
+import classNames from 'classnames';
 
-const AdminLayout = ({ children }) => {
+const AdminLayout = ({ children, title, className }) => {
   return (
-    <div className="w-screeen h-screen flex items-stretch bg-blue-50">
-      <div className="bg-blue-400 w-[200px]"></div>
-      <div className="bg-green-400 grow overflow-auto">
-        <div>{children}</div>
+    <div className="w-screeen h-screen flex items-stretch bg-white">
+      <AdminSidebar />
+      <div className=" grow overflow-auto ">
+        <AdminNavbar title={title} />
+        <div className="p-4">
+          <div className={classNames(className)}>{children}</div>
+        </div>
       </div>
     </div>
   );

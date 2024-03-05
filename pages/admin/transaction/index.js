@@ -1,7 +1,7 @@
-import React from 'react';
+import AdminLayout from '@/components/templates/AdminLayout';
 
 const Transaction = () => {
-  return <div>Transaction</div>;
+  return <AdminLayout title={'Transaction'}>Transaction</AdminLayout>;
 };
 
 export default Transaction;

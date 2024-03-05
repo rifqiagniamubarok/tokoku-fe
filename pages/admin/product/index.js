@@ -1,7 +1,8 @@
+import AdminLayout from '@/components/templates/AdminLayout';
 import React from 'react';
 
 const Product = () => {
-  return <div>Product</div>;
+  return <AdminLayout title={'Product'}>Product</AdminLayout>;
 };
 
 export default Product;
