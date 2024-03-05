@@ -1,16 +1,12 @@
-import Image from 'next/image';
-import { Inter } from 'next/font/google';
 import { Button, Card, Divider, Input } from '@nextui-org/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-const inter = Inter({ subsets: ['latin'] });
-
-export default function Home() {
+const Register = () => {
   const router = useRouter();
-  const handleLogin = (event) => {
+  const handleLoginRegister = (event) => {
     event.preventDefault();
-    router.push('/home');
+    router.push('/login');
   };
   return (
     <div className="h-screen w-screen bg-white-classic flex justify-center items-center">
@@ -18,23 +14,24 @@ export default function Home() {
         <div></div>
         <div>
           <div className="my-4">
-            <p className="text-primary text-2xl font-semibold text-center">Login</p>
+            <p className="text-primary text-2xl font-semibold text-center">Register</p>
           </div>
-          <form className="space-y-4" onSubmit={handleLogin}>
-            <Input label="username" name="Username" variant="bordered" color="primary" />
-            <Input label="username" name="Password" variant="bordered" color="primary" />
+          <form className="space-y-4" onSubmit={handleLoginRegister}>
+            <Input label="Name" name="name" variant="bordered" color="primary" />
+            <Input label="Username" name="username" variant="bordered" color="primary" />
+            <Input label="Password" name="password" variant="bordered" color="primary" />
             <div className="flex justify-end ">
               <Button color="primary" className="" type="submit">
-                Login
+                Register
               </Button>
             </div>
           </form>
           <Divider className="my-4" />
           <div className="">
             <p className="text-center">
-              Don't have an account ?{' '}
-              <Link href={'/register'} className="hover:text-primary text-opacity-75 text-primary">
-                Sign up
+              Have an account ?{' '}
+              <Link href={'/'} className="hover:text-primary text-opacity-75 text-primary">
+                Login
               </Link>
             </p>
           </div>
@@ -42,4 +39,6 @@ export default function Home() {
       </Card>
     </div>
   );
-}
+};
+
+export default Register;
