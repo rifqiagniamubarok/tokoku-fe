@@ -1,8 +1,8 @@
 import ClientLayout from '@/components/templates/ClientLayout';
 import React from 'react';
 
-const Home = () => {
-  return <ClientLayout>Home</ClientLayout>;
+const Order = () => {
+  return <ClientLayout>Order</ClientLayout>;
 };
 
-export default Home;
+export default Order;
