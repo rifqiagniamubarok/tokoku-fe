@@ -1,7 +1,7 @@
-import React from 'react';
+import ClientLayout from '@/components/templates/ClientLayout';
 
 const ProductDetail = () => {
-  return <div>ProductDetail</div>;
+  return <ClientLayout>ProductDetail</ClientLayout>;
 };
 
 export default ProductDetail;
