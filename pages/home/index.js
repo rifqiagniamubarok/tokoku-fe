@@ -47,6 +47,11 @@ const Home = () => {
           </Link>
         ))}
       </div>
+      <div className="text-center">
+        <Button className="" color="primary">
+          Load more
+        </Button>
+      </div>
     </ClientLayout>
   );
 };
