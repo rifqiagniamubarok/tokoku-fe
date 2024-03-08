@@ -1,6 +1,9 @@
+import axiosInstance from '@/utils/axiosInstance';
 import classNames from 'classnames';
+import { deleteCookie } from 'cookies-next';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/router';
 import React from 'react';
 
 const AdminSidebar = () => {
@@ -28,6 +31,23 @@ const AdminSidebar = () => {
     notActive: 'bg-primary text-white',
     general: 'py-2 px-4 rounded-md hover:bg-white hover:bg-opacity-75 hover:text-primary',
   };
+
+  const router = useRouter();
+
+  const fetchLogout = async () => {
+    try {
+      await axiosInstance.delete('/users/logout');
+      deleteCookie('token');
+      router.push('/');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleLogout = () => {
+    fetchLogout();
+  };
+
   return (
     <div className="bg-primary w-[200px] p-4 flex flex-col justify-between">
       <div>
@@ -50,7 +70,9 @@ const AdminSidebar = () => {
         </div>
       </div>
       <div>
-        <p className="cursor-pointer text-red-700 text-center p-2 bg-red-50 bg-opacity-50 rounded-md">Logout</p>
+        <p className="cursor-pointer text-red-700 text-center p-2 bg-red-50 bg-opacity-50 rounded-md" onClick={handleLogout}>
+          Logout
+        </p>
       </div>
     </div>
   );

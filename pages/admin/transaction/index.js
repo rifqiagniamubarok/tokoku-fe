@@ -3,8 +3,53 @@ import { Button, Card, Input, Pagination, Table, TableBody, TableCell, TableColu
 import { TiEye } from 'react-icons/ti';
 import { MdEdit } from 'react-icons/md';
 import ImageComponent from '@/components/atoms/ImageComponent';
+import { useEffect, useState } from 'react';
+import axiosInstance from '@/utils/axiosInstance';
+import dayjs from 'dayjs';
 
 const Transaction = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectTransaction, setSelectTransaction] = useState(0);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [transactions, setTransactions] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      setIsLoading(true);
+      const {
+        data: { data },
+      } = await axiosInstance.get('/admin/transactions');
+
+      setTransactions(data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchConfirm = async (id) => {
+    try {
+      setSelectTransaction(id);
+      setConfirmLoading(true);
+      await axiosInstance.post('/admin/transactions/confirm/' + id);
+      fetchData();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setConfirmLoading(false);
+      setSelectTransaction(0);
+    }
+  };
+
+  const handleConfirm = (id) => {
+    fetchConfirm(id);
+  };
+
   return (
     <AdminLayout title={'Transaction'}>
       {' '}
@@ -21,14 +66,21 @@ const Transaction = () => {
             <TableColumn></TableColumn>
           </TableHeader>
           <TableBody>
-            {[...Array(8)].map((_, index) => (
+            {transactions.map(({ updated_at, basket, status, id }, index) => (
               <TableRow key={index + 1}>
-                <TableCell>Product {index}</TableCell>
-                <TableCell>Rp. 40.000</TableCell>
-                <TableCell>30</TableCell>
-                <TableCell>Confirm_Pending</TableCell>
+                <TableCell>{dayjs(updated_at).format('MMM, DD YYYY HH:mm')}</TableCell>
+                <TableCell>Rp. {basket?.total_price}</TableCell>
+                <TableCell>{basket?.items}</TableCell>
+                <TableCell>{status}</TableCell>
                 <TableCell align="right">
-                  <Button size="sm" variant="solid" color="primary">
+                  <Button
+                    size="sm"
+                    variant="solid"
+                    color="primary"
+                    isDisabled={status !== 'confirmation_pending'}
+                    onClick={() => handleConfirm(id)}
+                    isLoading={id === selectTransaction && confirmLoading}
+                  >
                     Confirm
                   </Button>
                 </TableCell>
@@ -36,9 +88,9 @@ const Transaction = () => {
             ))}
           </TableBody>
         </Table>
-        <div className="mt-4 flex justify-center">
+        {/* <div className="mt-4 flex justify-center">
           <Pagination total={10} initialPage={1} />
-        </div>
+        </div> */}
       </Card>
     </AdminLayout>
   );
